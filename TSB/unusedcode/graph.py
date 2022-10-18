@@ -4,7 +4,8 @@
 from collections import deque
 import networkx as nx
 from math import *
-from tsbmap import *
+
+# from GlobalPlanner import *
 
 # description of the map, the first coordinate is x-axis
 # the second y-axis and third is if you can navigate that coordinate.
