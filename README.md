@@ -48,6 +48,6 @@ Today, one of the most used algorithms is the A\* so i ended using it, i followe
 
 - Was able to:
 
-  - create a map convertor to graph [here](TSB/ConvertPNGtoGraph)
+  - create a map convertor to graph [here](TSB/ConvertPNGtoGraph.py)
 
   - create an A\* algorithm aplied to the graph(Global Planner) [here](TSB/GlobalPlanner.py)
