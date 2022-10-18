@@ -16,20 +16,29 @@ Example of Data Structure
 
 ![](/TSB/DataStructure.png)
 
-Dentro da pasta [TSB](/TSB) temos duas pastas. Na pasta [images](/data/images) temos as imagens que foram usadas para treinar a rede neuronal e na pasta [labels](/data/labels) temos o ficheiro classes.txt (com as labels de cada um dos postes) e temos um ficheiro para cada imagem que contem o número da label e as coordenadas de cada uma das caixas da label. Dentro dessa pasta está também o ficheiro [dataset.yml](/data/dataset.yml) que vai ser usado pelo YOLOv5.
+## Data Structure
 
-- **Exemplo:** (Vision00126.jpg)  
-  ![](/misc/Vision00126.png)
+- I've decided to use a graph composed by only the nodes that are navigatable. Used the python networkx library
 
-  - Vision00126.txt:
+**Node Representation**
 
-    - 1 0.984688 0.495556 0.022187 0.665000
-    - 3 0.288906 0.491389 0.021250 0.751667
-    - 0 0.604141 0.493889 0.025156 0.718889
-    - 1 0.437734 0.496111 0.017656 0.702778
-    - 0 0.811867 0.495139 0.025328 0.702500
+- it is a tupple ( x , y , 0 or 1), being x and y data coordinates, 0 representing land and 1 representing water
 
-  - 0, 1, 2 e 3 corresponde a RedMarker, DangerMarker, ShallowMarker e GreenMarker, respetivamente, e os números correspondem aos cantos das caixas.
+**Edge Representation**
+
+- an edge is a tupple with the start node, the neighbour node, and the weight of the connection
+
+## Converting the map to a structure
+
+- I used the python pillow library to get the pixel colors and paint to get pixel coordinates
+
+## Learning ROS
+
+- Being a ros an OS that i never used i started to read the oficial documentation just to get a grasp of its utility. In the end I learned the basics needed to create a node and publish to a topic with the youtube [crash course](https://www.youtube.com/watch?v=wfDJAYTMTdk) by Robotics Back-End
+
+## Using ROS
+
+- The distribuition of ROS melodic operates with python 2 and the files
 
 ## Resultados
 
