@@ -51,3 +51,7 @@ Today, one of the most used algorithms is the A\* so i ended using it, i followe
   - create a map convertor to graph [here](TSB/ConvertPNGtoGraph.py)
 
   - create an A\* algorithm aplied to the graph(Global Planner) [here](TSB/GlobalPlanner.py)
+
+- This results only apply to this image of the chart with the objective of implementing it to the whole nautical chart.
+
+![](CartaNauticaReduzida.png)
