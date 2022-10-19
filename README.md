@@ -52,6 +52,8 @@ Today, one of the most used algorithms is the A\* so i ended using it, i followe
 
   - create an A\* algorithm aplied to the graph(Global Planner) [here](TSB/GlobalPlanner.py)
 
+  - create a ros global_planner package with a node that publish a path to a /path topic [here](TSB/Global_Planner.py)
+
 - This results only apply to this image of the chart with the objective of implementing it to the whole nautical chart.
 
 ![](CartaNauticaReduzida.png)
