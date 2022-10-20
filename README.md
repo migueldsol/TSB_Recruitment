@@ -8,11 +8,11 @@ Development of a global planer and a program that converts a png image into a da
 
 Create, in ros, a global planner node that is able to trace the shortest path between two given coordinates and publish it to a topic. Also it was given a nautical Chart with the purpose of transforming it into a data structure for the global planner.
 
-The Nautical Chart
+- The Nautical Chart
 
 ![](/TSB/CartaNautica.png)
 
-Example of Data Structure
+- Example of Data Structure (this is the 2d list that will be converted into a graph)
 
 ![](/TSB/DataStructure.png)
 
