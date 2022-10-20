@@ -57,3 +57,17 @@ Today, one of the most used algorithms is the A\* so i ended using it, i followe
 - This results only apply to this image of the chart with the objective of implementing it to the whole nautical chart.
 
 ![](CartaNauticaReduzida.png)
+
+## Installing the ros global_planner package
+
+- Inside catkin_ws/src/ run this command that will create a new package with the name global_planner
+
+  ```bash
+  catkin_create_pkg global_planner rospy nav_msgs geometry_msgs std_msgs
+  ```
+
+- After this enter the new folder and create a /scripts folder
+
+- Inside the /scripts folder insert the Global_Planner.py [here](/TSB/Global_Planner.py) and graph.py [here](/TSB/unusedcode/graph.py)
+
+- First run the graph.py and then after starting the roscore run the Global_Planner.py to start publishing the path to the /Path topic
