@@ -12,12 +12,15 @@ import rospy
 from geometry_msgs.msg import Pose, PoseStamped
 from std_msgs.msg import Header
 from nav_msgs.msg import Path
+import pickle
 
 
 # base coordinate is the coordinate corresponding to (0,0),(y,x)
 baseCoordinate = (294, 1706)
 # read the gpickle file with the graph already created
-G = nx.read_gpickle("map.gpickle")
+#G = nx.read_gpickle("map.gpickle")
+pickle_in = open("map.pickle","rb")
+G = pickle.load(pickle_in)
 
 
 ###################################################################################################

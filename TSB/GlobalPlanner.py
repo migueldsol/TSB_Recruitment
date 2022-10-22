@@ -7,13 +7,15 @@
 from collections import deque
 import networkx as nx
 from math import *
+import pickle
 
-from graph import *
 
 # base coordinate is the coordinate corresponding to (0,0),(y,x)
 baseCoordinate = (294, 1706)
 # read the gpickle file with the graph already created
-G = nx.read_gpickle("map.gpickle")
+#G = nx.read_gpickle("map.gpickle")
+pickle_in = open("map.pickle","rb")
+G = pickle.load(pickle_in)
 
 
 ###################################################################################################
@@ -199,12 +201,10 @@ def convertToRealCoordinates(coordinate):
 
 def main():
     print(
-        seeMap(
             getPath(
                 convertToRealCoordinates((1, 22, 1)),
                 convertToRealCoordinates((31, 3, 1)),
             )
-        )
     )
 
 

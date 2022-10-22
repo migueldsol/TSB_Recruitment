@@ -4,6 +4,7 @@
 from collections import deque
 import networkx as nx
 from math import *
+import pickle
 
 # from GlobalPlanner import *
 
@@ -2498,3 +2499,8 @@ for node in temp:
         G.add_edge(node, map[line][coordinate], length=neighbors[x][2])
 # nx.write_gexf(G, "/home/migueldsol/repositories/Private/TSB/ola.gexf")
 nx.write_gpickle(G, "map.gpickle")
+
+#stores data in pickle4
+pickle_out = open("map.pickle","wb")
+pickle.dump(G, pickle_out)
+pickle_out.close()
