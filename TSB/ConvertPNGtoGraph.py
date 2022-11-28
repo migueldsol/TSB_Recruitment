@@ -137,6 +137,7 @@ def create_graph(matrix, img_x_min, img_y_min, img_x_max, img_y_max, size_of_squ
             elif matrix[line][coordinate][2] == 0:
                 continue
             G.add_edge(node, matrix[line][coordinate], length=neighbors[x][2])
+        # FIXME verificar se ao adicionar a aresta ele adiciona aos dois nodes
     # will save in a gpickle file to later be read by tsbmap function
     nx.write_gpickle(G, "Map.gpickle")
 
