@@ -18,8 +18,8 @@ import pickle
 # base coordinate is the coordinate corresponding to (0,0),(y,x)
 baseCoordinate = (294, 1706)
 # read the gpickle file with the graph already created
-#G = nx.read_gpickle("map.gpickle")
-pickle_in = open("map.pickle","rb")
+# G = nx.read_gpickle("map.gpickle")
+pickle_in = open("map.pickle", "rb")
 G = pickle.load(pickle_in)
 
 
@@ -127,7 +127,7 @@ def astar(start, end):
 
 #######################################################################################################
 # seeMap function -> this function receives a path and prints it in the console
-#
+#                   map: need to implement a matriz map with all points
 #                   path: the path to be printed
 #
 #######################################################################################################
@@ -205,16 +205,19 @@ def convertToRealCoordinates(coordinate):
 
 def path():
 
-    return    getPath(
-                convertToRealCoordinates((1, 22, 1)),
-                convertToRealCoordinates((31, 3, 1)),
-            )
+    return getPath(
+        convertToRealCoordinates((1, 22, 1)),
+        convertToRealCoordinates((31, 3, 1)),
+    )
+
+
 ######################################################################
 #
-# publish_Path - receives a list of the optimal path and returns it 
+# publish_Path - receives a list of the optimal path and returns it
 #                in the form of a Path()
 #
 ######################################################################
+
 
 def publish_Path(path):
     msg = Path()
@@ -229,19 +232,16 @@ def publish_Path(path):
     return msg
 
 
-
-
-
 if __name__ == "__main__":
     rospy.init_node("Global_Planner")
     Path()
-    pub = rospy.Publisher("/path",Path,queue_size=1)
+    pub = rospy.Publisher("/path", Path, queue_size=1)
     msg = publish_Path(path())
     pub.publish(msg)
-    
+
     # publish every second
     rate = rospy.Rate(1)
-    
+
     while not rospy.is_shutdown():
         pub.publish(msg)
         rate.sleep()
