@@ -2,14 +2,12 @@ import sys
 from PIL import Image
 import networkx as nx
 from math import sqrt
+import pickle
 
 ############################################################################################
 # matrix_to_txtFile -> this function will create a txt file with the 0 (land) and -(water)
 #                     matrix: matrix to be written in the txt file
 ############################################################################################
-global matrix
-
-
 def matrix_to_txtFile(matrix):
     temp = ""
     # iterate column
@@ -83,6 +81,8 @@ def get_matrix(img_x_min, img_y_min, img_x_max, img_y_max, image, size_of_square
                         0,
                     )
                 )
+    with open("Matrix", "wb") as fp:  # Pickling
+        pickle.dump(matrix, fp)
     return matrix
 
 
@@ -137,9 +137,8 @@ def create_graph(matrix, img_x_min, img_y_min, img_x_max, img_y_max, size_of_squ
             elif matrix[line][coordinate][2] == 0:
                 continue
             G.add_edge(node, matrix[line][coordinate], length=neighbors[x][2])
-        # FIXME verificar se ao adicionar a aresta ele adiciona aos dois nodes
-    # will save in a gpickle file to later be read by tsbmap function
-    nx.write_gpickle(G, "Map.gpickle")
+    with open("MapTest", "wb") as fp:  # Pickling
+        pickle.dump(G, fp)
 
 
 #########################################################################################################
