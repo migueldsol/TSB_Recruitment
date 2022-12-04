@@ -1,7 +1,6 @@
 #!/usr/bin/env python2
 # Author: Miguel Sol
 # Created. 01 October 2022
-# This program creates a graph given a matrix n*or n*n
 #
 #
 #
@@ -19,10 +18,10 @@ import pickle
 baseCoordinate = (294, 1706)
 # read the gpickle file with the graph already created
 # G = nx.read_gpickle("map.gpickle")
-with open("MapTest", "rb") as mp:
-    map = pickle.load(mp)
-with open("Matrix", "rb") as mt:
-    matrix = pickle.load(mt)
+with open("MapTest.pickle", "rb") as mp:
+    dataStruct = pickle.load(mp)
+with open("Matrix.pickle", "rb") as mt:
+    map = pickle.load(mt)
 
 
 ###################################################################################################
@@ -98,7 +97,7 @@ def astar(start, end):
 
         # Generate children
         children = []
-        for adjacent_position in G.edges(current_node.position):
+        for adjacent_position in dataStruct.edges(current_node.position):
             # Get node position
             # Create new node
             new_node = Node(current_node, adjacent_position[1], adjacent_position[1][2])
@@ -135,10 +134,10 @@ def astar(start, end):
 #######################################################################################################
 
 
-def seeMap(path):
+def seeMap(path,img_x_min,img_x_max,img_y_min,img_y_max,size_of_square):
     temp = ""
-    for i in range(45, -1, -1):
-        for n in range(50, -1, -1):
+    for i in range((img_x_max - img_x_min)//size_of_square):
+        for n in range((img_y_max - img_y_min)//size_of_square):
             if convertToRealCoordinates(map[n][i]) in path:
                 temp += "0 "
             elif map[n][i][2] == 1:
@@ -160,28 +159,9 @@ def seeMap(path):
 
 
 def getPath(start, end):
-    start = convertFromRealCoordinates(start)
-    end = convertFromRealCoordinates(end)
     Path = astar(start, end)
-    for i in range(len(Path)):
-        Path[i] = convertToRealCoordinates(Path[i])
     return Path
 
-
-#######################################################################################################
-# convertFromRealCoordinates function -> this function receives a coordinate in real coordinates and
-#                                        returns the corresponding coordinate in the data structure
-#
-#                   coordinate: the coordinate to be converted
-#
-#                   returns: the corresponding coordinate in the data structure
-#######################################################################################################
-
-
-def convertFromRealCoordinates(coordinate):
-    x = round((baseCoordinate[1] - coordinate[1]) // 30.88)
-    y = round((coordinate[0] - baseCoordinate[0]) // 26.04)
-    return (x, y, 1)
 
 
 #######################################################################################################
@@ -192,12 +172,6 @@ def convertFromRealCoordinates(coordinate):
 #
 #                   returns: the corresponding coordinate in real coordinates
 #######################################################################################################
-
-
-def convertToRealCoordinates(coordinate):
-    x = int(round(baseCoordinate[1] - coordinate[0] * 30.88))
-    y = int(round(coordinate[1] * 26.04 + baseCoordinate[0]))
-    return (y, x)
 
 
 def conversor_pixel_to_mapa(img_x_min,img_x_max,img_y_min,img_y_max,x,y,size_of_square):
@@ -255,8 +229,6 @@ if __name__ == "__main__":
     img_x_max = 4682
     img_y_max = 3321
     size_of_square = 11
-    x= 2265
-    y= 2432
-    #print(conversor_pixel_to_mapa(img_x_min, img_x_max, img_y_min, img_y_max, x, y, size_of_square))
-    #print(seeMap(path()))
-    print(is_land(181,198))
+    start = conversor_pixel_to_mapa(img_x_min, img_x_max, img_y_min, img_y_max, 3155, 2075, size_of_square)
+    end = conversor_pixel_to_mapa(img_x_min, img_x_max, img_y_min, img_y_max, 2762, 2220, size_of_square)
+    print(getPath(start, end))
