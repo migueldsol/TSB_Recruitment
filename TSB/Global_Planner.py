@@ -7,7 +7,7 @@
 #
 from collections import deque
 import networkx as nx
-from math import *
+import math
 
 # import rospy
 # from geometry_msgs.msg import Pose, PoseStamped
@@ -19,10 +19,10 @@ import pickle
 baseCoordinate = (294, 1706)
 # read the gpickle file with the graph already created
 # G = nx.read_gpickle("map.gpickle")
-pickle_in = open("map.pickle", "rb")
-G = pickle.load(pickle_in)
-with open("Matrix", "rb") as fp:
-    matrix = pickle.load(fp)
+with open("MapTest", "rb") as mp:
+    map = pickle.load(mp)
+with open("Matrix", "rb") as mt:
+    matrix = pickle.load(mt)
 
 
 ###################################################################################################
@@ -200,6 +200,12 @@ def convertToRealCoordinates(coordinate):
     return (y, x)
 
 
+def conversor_pixel_to_mapa(img_x_min,img_x_max,img_y_min,img_y_max,x,y,size_of_square):
+    x = math.floor((x - img_x_min) / size_of_square) if (x - img_x_min) // size_of_square != 0 else math.floor((x - img_x_min) / size_of_square) - 1
+    y = math.floor((y - img_y_min) / size_of_square) if (y - img_y_min) // size_of_square != 0 else math.floor((y - img_y_min) / size_of_square) - 1
+    return (x,y)
+
+
 #######################################################################################################
 # Path -> this function is the main function of the program and its an example of how to use
 #######################################################################################################
@@ -240,6 +246,8 @@ def ros(Path):
     msg = publish_Path(path())
     pub.publish(msg)
 
+def is_land(x, y):
+    return True if matrix[x][y][2] == 0 else False
 
 if __name__ == "__main__":
     img_x_min = 268
@@ -247,4 +255,8 @@ if __name__ == "__main__":
     img_x_max = 4682
     img_y_max = 3321
     size_of_square = 11
-    print(seeMap(path()))
+    x= 2265
+    y= 2432
+    #print(conversor_pixel_to_mapa(img_x_min, img_x_max, img_y_min, img_y_max, x, y, size_of_square))
+    #print(seeMap(path()))
+    print(is_land(181,198))

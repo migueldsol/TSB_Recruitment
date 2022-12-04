@@ -64,7 +64,7 @@ def get_matrix(img_x_min, img_y_min, img_x_max, img_y_max, image, size_of_square
                     )
             # get mode of temp_color_matrix
             temp_color = max(set(temp_color_matrix), key=temp_color_matrix.count)
-            # if the color is above this rgb value intervale ot is considered water
+            # if the color is above this rgb value intervale is considered water
             if temp_color[0] > 190 and temp_color[1] > 200 and temp_color[2] > 200:
                 matrix[x].append(
                     (
