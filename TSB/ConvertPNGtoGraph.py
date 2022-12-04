@@ -81,7 +81,7 @@ def get_matrix(img_x_min, img_y_min, img_x_max, img_y_max, image, size_of_square
                         0,
                     )
                 )
-    with open("Matrix", "wb") as fp:  # Pickling
+    with open("Matrix.pickle", "wb") as fp:  # Pickling
         pickle.dump(matrix, fp)
     return matrix
 
@@ -137,7 +137,7 @@ def create_graph(matrix, img_x_min, img_y_min, img_x_max, img_y_max, size_of_squ
             elif matrix[line][coordinate][2] == 0:
                 continue
             G.add_edge(node, matrix[line][coordinate], length=neighbors[x][2])
-    with open("MapTest", "wb") as fp:  # Pickling
+    with open("MapTest.pickle", "wb") as fp:  # Pickling
         pickle.dump(G, fp)
 
 
