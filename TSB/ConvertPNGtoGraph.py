@@ -110,7 +110,7 @@ def create_graph(matrix, img_x_min, img_y_min, img_x_max, img_y_max, size_of_squ
     for i in range(lines):
         for j in range(coordinates):
             if matrix[i][j][2] == 1:
-                G.add_node(matrix[i][j])
+                G.add_node((matrix[i][j][0],matrix[i][j][1]))
 
     # list of operands to get the 8 surrounding coordinates
     neighbors = [
@@ -136,7 +136,7 @@ def create_graph(matrix, img_x_min, img_y_min, img_x_max, img_y_max, size_of_squ
             # checks if you can navigate to that coordinate
             elif matrix[line][coordinate][2] == 0:
                 continue
-            G.add_edge(node, matrix[line][coordinate], length=neighbors[x][2])
+            G.add_edge(node, (matrix[line][coordinate][0],matrix[line][coordinate][1]), length=neighbors[x][2])
     with open("MapTest.pickle", "wb") as fp:  # Pickling
         pickle.dump(G, fp)
 

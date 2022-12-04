@@ -18,9 +18,9 @@ import pickle
 baseCoordinate = (294, 1706)
 # read the gpickle file with the graph already created
 # G = nx.read_gpickle("map.gpickle")
-with open("MapTest.pickle", "rb") as mp:
-    dataStruct = pickle.load(mp)
-with open("Matrix.pickle", "rb") as mt:
+with open("D:\TSB_Recruitment\TSB\MapTest.pickle", "rb") as mp:
+    G = pickle.load(mp)
+with open("D:\TSB_Recruitment\TSB\Matrix.pickle", "rb") as mt:
     map = pickle.load(mt)
 
 
@@ -97,7 +97,7 @@ def astar(start, end):
 
         # Generate children
         children = []
-        for adjacent_position in dataStruct.edges(current_node.position):
+        for adjacent_position in G.edges(current_node.position):
             # Get node position
             # Create new node
             new_node = Node(current_node, adjacent_position[1], adjacent_position[1][2])
@@ -231,4 +231,7 @@ if __name__ == "__main__":
     size_of_square = 11
     start = conversor_pixel_to_mapa(img_x_min, img_x_max, img_y_min, img_y_max, 3155, 2075, size_of_square)
     end = conversor_pixel_to_mapa(img_x_min, img_x_max, img_y_min, img_y_max, 2762, 2220, size_of_square)
-    print(getPath(start, end))
+    #print(getPath(start, end))
+    print(G.edges(end))
+
+
