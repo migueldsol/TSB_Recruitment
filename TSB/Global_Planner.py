@@ -18,9 +18,11 @@ import pickle
 baseCoordinate = (294, 1706)
 # read the gpickle file with the graph already created
 # G = nx.read_gpickle("map.gpickle")
-with open("D:\TSB_Recruitment\TSB\MapTest.pickle", "rb") as mp:
+with open("MapTest.pickle", "rb") as mp:
+    # with open("D:\TSB_Recruitment\TSB\MapTest.pickle", "rb") as mp:
     G = pickle.load(mp)
-with open("D:\TSB_Recruitment\TSB\Matrix.pickle", "rb") as mt:
+with open("Matrix.pickle", "rb") as mt:
+    # with open("D:\TSB_Recruitment\TSB\Matrix.pickle", "rb") as mt:
     map = pickle.load(mt)
 
 
@@ -34,7 +36,7 @@ class Node:
 
     def __init__(self, parent=None, position=None, g=None):
         self.parent = parent
-        self.position = position
+        self.position = (position[0], position[1])
 
         self.g = g
         self.h = 0
@@ -108,7 +110,7 @@ def astar(start, end):
 
             # Create the f, g, and h values
             child.g += current_node.g
-            child.h = sqrt(
+            child.h = math.sqrt(
                 ((child.position[0] - end_node.position[0]) ** 2)
                 + ((child.position[1] - end_node.position[1]) ** 2)
             )
@@ -134,13 +136,13 @@ def astar(start, end):
 #######################################################################################################
 
 
-def seeMap(path,img_x_min,img_x_max,img_y_min,img_y_max,size_of_square):
+def seeMap(path, img_x_min, img_x_max, img_y_min, img_y_max, size_of_square):
     temp = ""
-    for i in range((img_x_max - img_x_min)//size_of_square):
-        for n in range((img_y_max - img_y_min)//size_of_square):
-            if convertToRealCoordinates(map[n][i]) in path:
+    for n in range((img_y_max - img_y_min) // size_of_square):
+        for i in range((img_x_max - img_x_min) // size_of_square):
+            if (map[i][n][0], map[i][n][1]) in path:
                 temp += "0 "
-            elif map[n][i][2] == 1:
+            elif map[i][n][2] == 1:
                 temp += "x "
             else:
                 temp += "- "
@@ -163,7 +165,6 @@ def getPath(start, end):
     return Path
 
 
-
 #######################################################################################################
 # convertToRealCoordinates function -> this function receives a coordinate in the data structure and
 #                                      returns the corresponding coordinate in real coordinates
@@ -174,10 +175,20 @@ def getPath(start, end):
 #######################################################################################################
 
 
-def conversor_pixel_to_mapa(img_x_min,img_x_max,img_y_min,img_y_max,x,y,size_of_square):
-    x = math.floor((x - img_x_min) / size_of_square) if (x - img_x_min) // size_of_square != 0 else math.floor((x - img_x_min) / size_of_square) - 1
-    y = math.floor((y - img_y_min) / size_of_square) if (y - img_y_min) // size_of_square != 0 else math.floor((y - img_y_min) / size_of_square) - 1
-    return (x,y)
+def conversor_pixel_to_mapa(
+    img_x_min, img_x_max, img_y_min, img_y_max, x, y, size_of_square
+):
+    x = (
+        math.floor((x - img_x_min) / size_of_square)
+        if (x - img_x_min) // size_of_square != 0
+        else math.floor((x - img_x_min) / size_of_square) - 1
+    )
+    y = (
+        math.floor((y - img_y_min) / size_of_square)
+        if (y - img_y_min) // size_of_square != 0
+        else math.floor((y - img_y_min) / size_of_square) - 1
+    )
+    return (x, y)
 
 
 #######################################################################################################
@@ -220,8 +231,10 @@ def ros(Path):
     msg = publish_Path(path())
     pub.publish(msg)
 
+
 def is_land(x, y):
     return True if matrix[x][y][2] == 0 else False
+
 
 if __name__ == "__main__":
     img_x_min = 268
@@ -229,9 +242,20 @@ if __name__ == "__main__":
     img_x_max = 4682
     img_y_max = 3321
     size_of_square = 11
-    start = conversor_pixel_to_mapa(img_x_min, img_x_max, img_y_min, img_y_max, 3155, 2075, size_of_square)
-    end = conversor_pixel_to_mapa(img_x_min, img_x_max, img_y_min, img_y_max, 2762, 2220, size_of_square)
-    #print(getPath(start, end))
-    print(G.edges(end))
-
-
+    start = conversor_pixel_to_mapa(
+        img_x_min, img_x_max, img_y_min, img_y_max, 3155, 2075, size_of_square
+    )
+    end = conversor_pixel_to_mapa(
+        img_x_min, img_x_max, img_y_min, img_y_max, 2762, 2220, size_of_square
+    )
+    # print(getPath(start, end))
+    print(
+        seeMap(
+            getPath(start, end),
+            img_x_min,
+            img_x_max,
+            img_y_min,
+            img_y_max,
+            size_of_square,
+        )
+    )
