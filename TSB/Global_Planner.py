@@ -191,19 +191,6 @@ def conversor_pixel_to_mapa(
     return (x, y)
 
 
-#######################################################################################################
-# Path -> this function is the main function of the program and its an example of how to use
-#######################################################################################################
-
-
-def path():
-
-    return getPath(
-        convertToRealCoordinates((1, 22, 1)),
-        convertToRealCoordinates((31, 3, 1)),
-    )
-
-
 ######################################################################
 #
 # publish_Path - receives a list of the optimal path and returns it
