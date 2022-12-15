@@ -62,7 +62,7 @@ def dist(a, b):
 
 
 def getPath(start, end):
-    Path = G.astar_path(G, start, end, heuristic=dist, weight="weight")
+    Path = nx.astar_path(G, start, end, heuristic=dist, weight="weight")
     return Path
 
 
@@ -120,10 +120,6 @@ def ros(Path):
     pub.publish(msg)
 
 
-def is_land(x, y):
-    return True if matrix[x][y][2] == 0 else False
-
-
 if __name__ == "__main__":
     img_x_min = 268
     img_y_min = 251
@@ -138,12 +134,10 @@ if __name__ == "__main__":
     )
     # print(getPath(start, end))
     print(
-        seeMap(
-            getPath(start, end),
-            img_x_min,
-            img_x_max,
-            img_y_min,
-            img_y_max,
-            size_of_square,
-        )
+        getPath(start, end),
+        img_x_min,
+        img_x_max,
+        img_y_min,
+        img_y_max,
+        size_of_square,
     )

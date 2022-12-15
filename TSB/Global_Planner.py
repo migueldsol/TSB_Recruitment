@@ -237,12 +237,10 @@ if __name__ == "__main__":
     )
     # print(getPath(start, end))
     print(
-        seeMap(
-            getPath(start, end),
-            img_x_min,
-            img_x_max,
-            img_y_min,
-            img_y_max,
-            size_of_square,
-        )
+        getPath(start, end),
+        img_x_min,
+        img_x_max,
+        img_y_min,
+        img_y_max,
+        size_of_square,
     )
